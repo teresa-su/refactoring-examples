@@ -10,6 +10,10 @@ from matplotlib import animation
 
 import random
 
+def add_array(array1,array2, index1, index2, threshold): 
+    array1[index1] = array1[index1] + (array2[index2] - array2[index1]) * threshold/len(array2)
+
+
 boids_x=[random.uniform(-450,50.0) for x in range(50)]
 boids_y=[random.uniform(300.0,600.0) for x in range(50)]
 boid_x_velocities=[random.uniform(0,10.0) for x in range(50)]
@@ -21,7 +25,8 @@ def update_boids(boids):
     # Fly towards the middle
     for i in range(len(xs)):
         for j in range(len(xs)):
-            xvs[i]=xvs[i]+(xs[j]-xs[i])*0.01/len(xs)
+            add_array(xvs,xs,i,j,0.01)
+        #xvs[i]=xvs[i]+(xs[j]-xs[i])*0.01/len(xs)
     for i in range(len(xs)):
         for j in range(len(xs)):
             yvs[i]=yvs[i]+(ys[j]-ys[i])*0.01/len(xs)
