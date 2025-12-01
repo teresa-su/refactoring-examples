@@ -41,18 +41,22 @@ def match_speed(xs,ys,xvs,yvs):
                 yvs[i]=yvs[i]+(yvs[j]-yvs[i])*0.125/len(xs)
     return xvs,yvs
 
-def move(xs,ys,xvs,yvs):
-    for i in range(len(xs)):
-        xs[i]=xs[i]+xvs[i]
-        ys[i]=ys[i]+yvs[i]
-    return xs,ys
+def move(array1, array2, i):
+    array2[i] = array2[i] + array1[i]
+    # xs[i]=xs[i]+xvs[i]
+    # ys[i]=ys[i]+yvs[i]
 
 def update_boids(boids):
     xs,ys,xvs,yvs=boids
-    xvs,yvs = fly_towards(xs,ys,xvs,yvs)
-    xvs,yvs = fly_away(xs,ys,xvs,yvs)
-    xvs,yvs = match_speed(xs,ys,xvs,yvs)
-    xs,ys = move(xs,ys,xvs,yvs)
+    for i in range(len(xs)):
+        for j in range(len(xs)):
+            xvs,yvs = fly_towards(xs,ys,xvs,yvs)
+            xvs,yvs = fly_away(xs,ys,xvs,yvs)
+            xvs,yvs = match_speed(xs,ys,xvs,yvs)
+
+        move(xvs, xs,i )
+        move(yvs, ys,i )
+        # xs,ys = move(xs,ys,xvs,yvs)
     
 if __name__ == "__main__":
     update_boids(boids)
